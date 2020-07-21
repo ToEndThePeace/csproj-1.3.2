@@ -6,10 +6,10 @@
 
 ## Objectives
 
-- identify when a problem is amenable to a recursive solution and use recursion to solve it
-- trace and accurately identify the output of a recursive function call
-- write a recursive solution to a problem
-- distinguish when to use, classify the performance, and implement code to conduct classic recursive sorting algorithms
+* identify when a problem is amenable to a recursive solution and use recursion to solve it
+* trace and accurately identify the output of a recursive function call
+* write a recursive solution to a problem
+* distinguish when to use, classify the performance, and implement code to conduct classic recursive sorting algorithms
 
 ## Introduction
 
@@ -19,22 +19,22 @@ When you begin interviewing for jobs, you will often encounter problems that hav
 
 ## Instructions and/or completion requirements
 
-- [ ] Implement the binary search algorithm in [searching.py](src/searching/searching.py) in a recursive fashion.
-- [ ] Test your implementation by running `test_searching.py`.
-- [ ] Read through the descriptions of the `merge_sort` algorithm in [Training Kit](https://learn.lambdaschool.com/cs/module/reccRh9h6ccXghfA4/).
-- [ ] Implement `merge_sort` in [sorting.py](src/sorting/sorting.py)
-- [ ] Test your implementation by running `test_sorting.py`.
+* [ ] Implement the binary search algorithm in [searching.py](src/searching/searching.py) in a recursive fashion.
+* [ ] Test your implementation by running `test_searching.py` .
+* [ ] Read through the descriptions of the `merge_sort` algorithm in [Training Kit](https://learn.lambdaschool.com/cs/module/reccRh9h6ccXghfA4/).
+* [ ] Implement `merge_sort` in [sorting.py](src/sorting/sorting.py)
+* [ ] Test your implementation by running `test_sorting.py` .
 
 ## Stretch goals
 
-- [ ] Implement an order-agnostic binary search that correctly performs binary search an array sorted in either ascending order or descending order.
-- [ ] Test your order-agnostic binary search implementation by uncommenting the test in `test_searching.py`.
-- [ ] Implement an in-place version of `merge_sort` that does not allocate any additional memory. In other words, the space complexity for this function should be O(1).
-- [ ] Test your in-place merge sort implementation by uncommenting the test in `test_sorting.py`.
+* [ ] Implement an order-agnostic binary search that correctly performs binary search an array sorted in either ascending order or descending order.
+* [ ] Test your order-agnostic binary search implementation by uncommenting the test in `test_searching.py` .
+* [ ] Implement an in-place version of `merge_sort` that does not allocate any additional memory. In other words, the space complexity for this function should be O(1).
+* [ ] Test your in-place merge sort implementation by uncommenting the test in `test_sorting.py` .
 
 ## Tests
 
-Make sure you test your implementations by running the appropriate tests in `test_searching.py` and `test_sorting.py`.
+Make sure you test your implementations by running the appropriate tests in `test_searching.py` and `test_sorting.py` .
 
 ## FAQs
 
@@ -50,7 +50,7 @@ algorithm.
 
 Here's an example with `O(1)` space requirements:
 
-```python
+``` python
 def alg(data):
     result = 0
 
@@ -60,22 +60,21 @@ def alg(data):
     return result
 ```
 
-Clearly the _time_ complexity is `O(n)`. As list `data` grows, the time it takes
+Clearly the _time_ complexity is `O(n)` . As list `data` grows, the time it takes
 to complete the algorithm grows proportionately.
 
-But the _space_ complexity is `O(1)`. The additional space required to complete
+But the _space_ complexity is `O(1)` . The additional space required to complete
 the algorithm was:
 
-* `result`: `O(1)`
-* `v`: `O(1)`
-
+* `result` : `O(1)`
+* `v` : `O(1)`
 And neither of those change in size regardless of how big list `data` is. `data`
 could have a zillion elements, and the algorithm would still only require space
-for `result` and `v`.
+for `result` and `v` .
 
 What about this:
 
-```python
+``` python
 def alg(data):
     new_data = data.copy()   # <-- Added this line
 
@@ -89,14 +88,13 @@ def alg(data):
 
 Here we have more space allocated.
 
-* `result`: `O(1)`
-* `v`: `O(1)`
-* `new_data`: `O(n)`
-
-`new_data` gets bigger as `data` gets bigger, so it's `O(n)`. So we have:
+* `result` : `O(1)`
+* `v` : `O(1)`
+* `new_data` : `O(n)`
+`new_data` gets bigger as `data` gets bigger, so it's `O(n)` . So we have:
 
 `O(1) + O(1) + O(n)` space requirements. `O(n)` dominates, so the final result
-is `O(n)`.
+is `O(n)` .
 
 Where things get really tricky is when you have a recursive call. Each call to
 the function allocates space for all the local variables.
@@ -108,7 +106,7 @@ Here's the same algorithm as before that adds all the elements in a list, except
 this one does it recursively. Recall that the initial iterative version was
 `O(1)` space complexity.
 
-```python
+``` python
 def alg(data):
     if data == []:
         return 0
@@ -118,9 +116,9 @@ def alg(data):
     return first_val + alg(data[1:])
 ```
 
-Every time we make a call into `alg()`, we get new space for local variables. So
+Every time we make a call into `alg()` , we get new space for local variables. So
 any local variable that was `O(1)` on its own, now gets _n_ copies and becomes
-`O(1*n)` or `O(n)`.
+`O(1*n)` or `O(n)` .
 
 But that's not all. When we slice `data` on the recursive call, we get a new
 list. So that means every call we're getting another copy of the list, and each
@@ -130,32 +128,35 @@ _n_ copies of `O(n)` space, which comes to `O(n*n)` or `O(n^2)` space.
 > Sure, it's not a _complete_ copy of the list. It's missing the first element.
 > So each call has a shorter and shorter list, like:
 >
-> ```python
+>  
+
+``` python
 > [ 1, 2, 3, 4 ]
 > [ 2, 3, 4 ]
 > [ 3, 4 ]
 > [ 4 ]
 > [ ]
 > ```
+
 >
-> So that means the first call wasn't really `O(n)`, but was more like
-> `O(0.8*n)`, and the second was `O(0.6*n)`, and so on.
+> So that means the first call wasn't really `O(n)` , but was more like
+> `O(0.8*n)` , and the second was `O(0.6*n)` , and so on.
 >
 > But recall that we drop constants with Big-O, so those still just become
-> `O(n)`.
+> `O(n)` .
 
 So we have _n_ recursive calls.
 
-`first_val` on its own is `O(1)`. But we recurse _n_ times, so it becomes
-`O(1*n)` or just `O(n)`.
+`first_val` on its own is `O(1)` . But we recurse _n_ times, so it becomes
+`O(1*n)` or just `O(n)` .
 
-Each slice of `data` on its own is `O(n)`. But we recurse _n_ times, so it
-becomes `O(n*n)` or `O(n^2)`.
+Each slice of `data` on its own is `O(n)` . But we recurse _n_ times, so it
+becomes `O(n*n)` or `O(n^2)` .
 
 So the total space complexity for this algorithm is:
 
-`O(n) + O(n^2)`. The `O(n^2)` dominates, so the final space complexity is just
-`O(n^2)`.
+`O(n) + O(n^2)` . The `O(n^2)` dominates, so the final space complexity is just
+`O(n^2)` .
 
 Again, compare to the `O(1)` space complexity of the initial iterative solution.
 
@@ -204,7 +205,7 @@ harder to understand.
 As an example, here's a non-in-place Quicksort, which seems to be generally
 clearer than the in-place variant, but uses far more memory:
 
-```python
+``` python
 def partition(data):
     left = []
     pivot = data[0]
@@ -235,7 +236,7 @@ This is counterintuitive, because you're used to reading code and "running" it
 mentally to follow what it does.
 
 Unfortunately, with recursion, keeping track of all the calls and returns
-quickly gets out of hand and human brains can't handle it. Computers are fine,
+quickly gets out of hand and human brains can't handle it. Computers are fine, 
 but people, not so much.
 
 A better approach is to see how you're using recursion and try to model it in
@@ -246,16 +247,16 @@ subproblems.
 
 For example, the Fibonacci sequence is:
 
-```
+``` 
 0 1 1 2 3 5 8 13 21 34 ...
 ```
 
 where each number is the sum of the previous two numbers. And the _0th_ number
-is defined to be `0`, and the _1st_ number is defined to be `1`.
+is defined to be `0` , and the _1st_ number is defined to be `1` .
 
 We can write that mathematically like so:
 
-```
+``` 
 fib(0) = 0
 fib(1) = 1
 fib(n) = fib(n-1) + fib(n-2)
@@ -271,7 +272,7 @@ it at that.
 
 And that translates to code pretty easily:
 
-```python
+``` python
 def fib(n):
     if n == 0:
         return 0
