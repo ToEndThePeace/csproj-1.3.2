@@ -3,15 +3,18 @@ def binary_search(arr, target, start, end):
     # Your code here
     if end < start:
         return -1
-    
+
     mid = (start + end) // 2
-    
+
     if target == arr[mid]:
         return mid
     elif target < arr[mid]:
-        return binary_search(arr, target, start=start, end=mid-1) # change thsi
+        # change thsi
+        return binary_search(arr, target, start=start, end=mid-1)
     else:
         return binary_search(arr, target, start=mid+1, end=end)
+
+
 
 # STRETCH: implement an order-agnostic binary search
 # This version of binary search should correctly find
