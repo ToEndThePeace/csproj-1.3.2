@@ -37,7 +37,7 @@ def desc_binary_search(arr, target, start, end):
 # or iteratively
 
 def agnostic_binary_search(arr, target):
-    if arr[0] > arr[1]:
+    if arr[0] >= arr[-1]:
         is_ascending = False
     else:
         is_ascending = True
