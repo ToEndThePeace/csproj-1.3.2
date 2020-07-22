@@ -29,16 +29,12 @@ def merge_sort(arr):
     # Your code here
     if len(arr) > 1:
         mid = len(arr) // 2
-        L = arr[:mid]
-        R = arr[mid:]
 
-        L = merge_sort(L)
-        R = merge_sort(R)
+        left = merge_sort(arr[:mid])   # recursively sort left side
+        right = merge_sort(arr[mid:])  # recursively sort right side
 
-        temp = merge(L, R)
-        return temp
-    else:
-        return arr
+        arr = merge(left, right)
+    return arr
 
 # STRETCH: implement the recursive logic for merge sort in a way that doesn't
 # utilize any extra memory
